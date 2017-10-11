@@ -1,0 +1,1 @@
+<a href="{{ route('login') }}">Iniciar Sesión</a>

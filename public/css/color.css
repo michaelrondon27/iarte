@@ -1,0 +1,16 @@
+nav li   a:hover , .fixed-filter .gallery-filters a:hover   , .share-holder .showshare:hover  , .hd-box-wrap h2 a:hover  , .vis-desc .portfolio_item .overal-box h2 a:hover , .about-entry h3 span  , .inline-facts i , .sliding-menu a.back:before   , .det-meta li:hover span , .det-meta li:hover a , .det-info h2 span , .det-meta li i  , .column-text h2 span  , .fixed-icons .mail-link a , .serv-header i , .ser-wrap li span.price span , .order-wrap h3 span , .carousel-title-wrap h3 span , .testi-item a.testim-link:hover , .testimonials-slider ul.star-rating li i , .section-qoute  p span , .sec-entr-link:hover , .footer-social li a:hover , .serv-flat .servicses-holder li span.price span , .contact-list li i  .det-info .gallery-filters  a:hover , .det-info .gallery-filters  a.gallery-filter_active  , .share-holder.hid-share .share-container  .share-icon:hover  , .blog-btn i , .search-submit , .art-opt .post-counter li i , .load-more-post i , .numpc , .header-social li a:hover   , .share-holder.block-share .share-container .share-icon:hover , .fw-artc h2 a:hover , .social-widget li a:hover , #success_page p strong , .det-box h3 a:hover , nav li ul li a.act-link , .fp-desc h2 a:hover{ 
+	color:#800000;
+}
+.color-bg , .gals a:hover , .custom-skillbar , .sec-dec:after , .play-video-wrap a:hover , .fixed-icons li:hover , #submit , .contact-social li a , .box-item.popup-box a , .fp-desc .post-date , .pagination-blog a.current-page , .main-sidebar-widget .tags-widget .tagcloud a:hover , .main-sidebar-widget .category-widget .cat-item li:before , .single-post-tags a:hover , .post-comments-wrap span.reply a , #respond #submit,.wpcf7 .wpcf7-submit{
+	background:#800000;
+}
+@media only screen and  (max-width: 756px) {
+.fixed-filter .gallery-filters a.gallery-filter_active , .inline-filter .gallery-filters a.gallery-filter_active  {
+		color:#800000;
+}
+}
+@media only screen and  (max-width: 1036px) {
+nav li a.act-link  {
+		color:#800000;
+}
+}
