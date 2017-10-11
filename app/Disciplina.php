@@ -10,7 +10,7 @@ class Disciplina extends Model
 
     protected $fillable=['disciplina'];
 
-    public function artitas()
+    public function artistas()
     {
     	return $this->belongsToMany('App\Artista')->withTimestamps();
     }

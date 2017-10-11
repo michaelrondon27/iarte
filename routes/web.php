@@ -187,5 +187,13 @@ Route::get('/', function () {
 			]);
 		/* End Routes Artistas Habilidades */
 
+		/* Start Routes Cargos */
+				Route::resource('cargos', 'CargosController');
+				Route::post('cargos/listing', [
+					'uses' => 'CargosController@listing',
+					'as' => 'cargos.listing'
+				]);
+			/* End Routes Cargos */
+
 	});
 /* End Routes for Auth */

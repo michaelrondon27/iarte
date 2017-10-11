@@ -26,14 +26,32 @@
                   <!--second level end-->
                   <ul>
                     @if($perfil->perfil=="Administrador" || $perfil->perfil=="Auditor")
-                      <li><a href="{{ route('disciplinas.index') }}" class="ajax"><i class="fa fa-briefcase"></i> Disciplinas</a></li>
-                      <li><a href="{{ route('paises.index') }}" class="ajax"><i class="fa fa-flag"></i> Paises</a></li>
-                      <li><a href="{{ route('profesiones.index') }}" class="ajax"><i class="fa fa-graduation-cap"></i> Profesiones</a></li>
-                      <li><a href="{{ route('redessociales.index') }}" class="ajax"><i class="fa fa-handshake-o"></i> Redes Sociales</a></li>
-                      <li><a href="{{ route('tiposmuseos.index') }}" class="ajax"><i class="fa fa-university"></i> Tipos de Museos</a></li>
+                      <li>
+                        <a><i class="fa fa-address-book-o"></i> Artistas</a>
+                        <ul>
+                          <li><a href="{{ route('disciplinas.index') }}" class="ajax"><i class="fa fa-briefcase"></i> Disciplinas</a></li>
+                          <li><a href="{{ route('paises.index') }}" class="ajax"><i class="fa fa-flag"></i> Paises</a></li>
+                          <li><a href="{{ route('profesiones.index') }}" class="ajax"><i class="fa fa-graduation-cap"></i> Profesiones</a></li>
+                          <li><a href="{{ route('redessociales.index') }}" class="ajax"><i class="fa fa-handshake-o"></i> Redes Sociales</a></li>
+                        </ul>
+                      </li>
+                    @endif
+                    @if($perfil->perfil=="Administrador" || $perfil->perfil=="Auditor")
+                      <li>
+                        <a><i class="fa fa-university"></i> Museos</a>
+                        <ul>
+                          <li><a href="{{ route('cargos.index') }}" class="ajax"><i class="fa fa-id-badge"></i> Cargos</a></li>
+                          <li><a href="{{ route('tiposmuseos.index') }}" class="ajax"><i class="fa fa-university"></i> Tipos de Museos</a></li>
+                        </ul>
+                      </li>
                     @endif
                     @if($perfil->perfil=="Administrador" || $perfil->perfil=="Publicista")
-                      <li><a href="{{ route('etiquetas.index') }}" class="ajax"><i class="fa fa-tags"></i> Etiquetas</a></li>
+                      <li>
+                        <a><i class="fa fa-newspaper-o"></i> Noticias</a>
+                        <ul>
+                            <li><a href="{{ route('etiquetas.index') }}" class="ajax"><i class="fa fa-tags"></i> Etiquetas</a></li>
+                        </ul>
+                      </li>
                     @endif
                   </ul>
                   <!--second level end-->
