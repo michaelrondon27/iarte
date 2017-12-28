@@ -460,3 +460,86 @@ textarea{
 .letra-blanco{
   color: #fff !important;
 }
+.label_biografia{
+  font-size: 20px;
+}
+.cursor{
+  cursor: pointer;
+}
+.negrita{
+  font-weight: bold;
+}
+#interface {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+#interface {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+.boton {
+  border: 0 none;
+  background: #800000;
+  font-size: 20px;
+  padding: 15px 30px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.boton:hover, .boton:focus {
+  outline: 0;
+  background: #C62828;
+}
+.boton:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  border: 0 none;
+  margin-right: 0;
+  transition: all .5s;
+}
+.boton.load:before {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #9E9E9E;
+  border-top-color: white;
+  margin-right: 10px;
+  animation: rotating 1s infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.filtro-btn {
+  float:left;
+  padding:10px 50px 10px 20px;
+  background:#f9f9f9;
+  border:1px solid #eee;
+  border-radius:4px;
+  position:relative;
+  cursor:pointer;
+}
+.filtro-btn i {
+  position:absolute;
+  top:12px;
+  right:8px;
+  color: #800000;
+}
+input[type="radio"]{
+  float: left;
+  margin-left: 5px;
+  margin-top: 7px;
+}

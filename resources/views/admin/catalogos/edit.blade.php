@@ -11,39 +11,41 @@
 @endsection
 @section('content')
     @include('admin.catalogos.imagen')
-    <div class="modal fade" id="imagen_editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Editar información de la imagen</h4>
-                </div>
-                @include('template.partials.required')
-                <div class="modal-body">
-                    {!! Form::open(['method'=>'PUT', 'role'=>'form', 'files'=>true, 'id'=>'form_actualizar_imagen']) !!}
-                        {!! Form::hidden('_token', csrf_token(), ['id'=>'token']) !!}
-                        <div class="box-body">
-                            <div class="form-group col-md-12">
-                                {!! Form::label('imagen', 'Imagen', ['class'=>'pull-left']) !!}
-                                {!! Form::file('imagen', ['class'=>'form-control', 'id'=>'imagen_imagen']) !!}
+    @foreach($catalogo->artistasCatalogosImagenes as $imagen)
+        <div class="modal fade" id="imagen{{ $imagen->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Editar información de la imagen</h4>
+                    </div>
+                    @include('template.partials.required')
+                    <div class="modal-body">
+                        {!! Form::open(['route'=>['artistasimagenes.update', $imagen->id],'method'=>'PUT', 'role'=>'form', 'files'=>true]) !!}
+                            {!! Form::hidden('_token', csrf_token(), ['id'=>'token']) !!}
+                            <div class="box-body">
+                                <div class="form-group col-md-12">
+                                    {!! Form::label('imagen', 'Imagen', ['class'=>'pull-left']) !!}
+                                    {!! Form::file('imagen', ['class'=>'form-control', 'id'=>'imagen_imagen']) !!}
+                                </div>
+                                <div class="form-group col-md-12">
+                                    {!! Form::label('nombre', '*Nombre',['class'=>'pull-left']) !!}
+                                    {!! Form::text('nombre', $imagen->nombre, ['class'=>'form-control', 'placeholder'=>'Nombre', 'required', 'id'=>'nombre_imagen']) !!}
+                                </div>
+                                <div class="form-group col-md-12">
+                                    {!! Form::label('descripcion', 'Descripción',['class'=>'pull-left']) !!}
+                                    {!! Form::textarea('descripcion', $imagen->descripcion, ['class'=>'form-control', 'placeholder'=>'Descripción', 'id'=>'descripcion_imagen']) !!}
+                                </div>
+                                <div class="form-group col-md-8 col-md-offset-2">
+                                    {!! Form::submit('Guardar',['class'=>'btn btn-vinotinto']) !!}
+                                </div>
                             </div>
-                            <div class="form-group col-md-12">
-                                {!! Form::label('nombre', '*Nombre',['class'=>'pull-left']) !!}
-                                {!! Form::text('nombre', null, ['class'=>'form-control', 'placeholder'=>'Nombre', 'required', 'id'=>'nombre_imagen']) !!}
-                            </div>
-                            <div class="form-group col-md-12">
-                                {!! Form::label('descripcion', 'Descripción',['class'=>'pull-left']) !!}
-                                {!! Form::textarea('descripcion', null, ['class'=>'form-control', 'placeholder'=>'Descripción', 'id'=>'descripcion_imagen']) !!}
-                            </div>
-                            <div class="form-group col-md-8 col-md-offset-2">
-                                {!! Form::submit('Guardar',['class'=>'btn btn-vinotinto']) !!}
-                            </div>
-                        </div>
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
     <!-- portfolio  Images  -->
     <div class="vis-pan bvp no-mpan">
         <div class="show-details cpdet novisdet">Detalles</div>

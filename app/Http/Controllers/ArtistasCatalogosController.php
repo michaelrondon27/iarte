@@ -105,7 +105,7 @@ class ArtistasCatalogosController extends Controller
         }
         $catalogo->disciplinas()->sync($request->disciplinas);
         $this->registroEvento("Creo el catalogo ".$catalogo->titulo, "INSERT");
-        return redirect()->route('artistascatalogos.show', $catalogo->artista_id);
+        return redirect()->route('artistascatalogos.edit', $catalogo->id);
     }
 
     /**
@@ -120,10 +120,17 @@ class ArtistasCatalogosController extends Controller
             return redirect()->route('home');
         }
         $artista=Artista::find($id);
-        $catalogos=ArtistaCatalogo::where('artista_id', '=', $artista->id)->orderBy('visitas', 'DESC')->get();
-        $tags=Disciplina::orderBy('disciplina', 'ASC')->get();
-        $disciplinas=Disciplina::orderBy('disciplina', 'ASC')->pluck('disciplina', 'id');
-        return view('admin.catalogos.show')->with('catalogos', $catalogos)->with('disciplinas', $disciplinas)->with('artista', $artista)->with('tags', $tags);
+        if($artista==null)
+        {
+            return View('errores.404');
+        }
+        else
+        {
+            $catalogos=ArtistaCatalogo::where('artista_id', '=', $artista->id)->orderBy('id', 'DESC')->get();
+            $tags=Disciplina::orderBy('disciplina', 'ASC')->get();
+            $disciplinas=Disciplina::orderBy('disciplina', 'ASC')->pluck('disciplina', 'id');
+            return view('admin.catalogos.show')->with('catalogos', $catalogos)->with('disciplinas', $disciplinas)->with('artista', $artista)->with('tags', $tags);
+        }
     }
 
     /**
@@ -138,9 +145,15 @@ class ArtistasCatalogosController extends Controller
             return redirect()->route('home');
         }
         $catalogo=ArtistaCatalogo::find($id);
-        $disciplinas=Disciplina::orderBy('disciplina', 'ASC')->pluck('disciplina', 'id');
-        $mis_disciplinas=$catalogo->disciplinas->pluck('id')->ToArray();
-        return view('admin.catalogos.edit')->with('catalogo', $catalogo)->with('disciplinas', $disciplinas)->with('mis_disciplinas', $mis_disciplinas);
+        if($catalogo==null)
+        {
+            return View('errores.404');
+        }
+        else
+        {
+            $disciplinas=Disciplina::orderBy('disciplina', 'ASC')->pluck('disciplina', 'id');
+            return view('admin.catalogos.edit')->with('catalogo', $catalogo)->with('disciplinas', $disciplinas);
+        }
     }
 
     /**

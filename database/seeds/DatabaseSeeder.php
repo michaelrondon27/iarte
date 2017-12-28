@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GenerosTableSeeder::class);
         $this->call(PaisesTableSeeder::class);
         $this->call(IconsTableSeeder::class);
+        $this->call(EstadosTableSeeder::class);
+        $this->call(EstadosCivilesTableSeeder::class);
     }
 }

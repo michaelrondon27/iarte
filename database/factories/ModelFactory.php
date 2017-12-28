@@ -48,6 +48,18 @@ $factory->define(App\Pais::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Estado::class, function (Faker\Generator $faker) {
+    return[
+        'estado'=>$faker->text(100),
+    ];
+});
+
+$factory->define(App\EstadoCivil::class, function (Faker\Generator $faker) {
+    return[
+        'estado_civil'=>$faker->text(15),
+    ];
+});
+
 $factory->define(App\Icon::class, function (Faker\Generator $faker) {
     return[
         'icon'=>$faker->text(100),

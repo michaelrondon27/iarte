@@ -29,5 +29,23 @@ class StatusTableSeeder extends Seeder
         factory(App\Status::class)->create([
             'status'=>'Pendiente',
         ]);
+        factory(App\Status::class)->create([
+            'status'=>'En edición',
+        ]);
+        factory(App\Status::class)->create([
+            'status'=>'Publicado',
+        ]);
+        factory(App\Status::class)->create([
+            'status'=>'En proceso',
+        ]);
+        factory(App\Status::class)->create([
+            'status'=>'En evaluación',
+        ]);
+        factory(App\Status::class)->create([
+            'status'=>'Rechazado',
+        ]);
+        factory(App\Status::class)->create([
+            'status'=>'Aceptado',
+        ]);
     }
 }

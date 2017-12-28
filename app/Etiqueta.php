@@ -11,4 +11,8 @@ class Etiqueta extends Model
 
     protected $fillable=['etiqueta'];
 
+    public function noticias()
+    {
+    	return $this->belongsToMany('App\Noticia')->withTimestamps();
+    }
 }

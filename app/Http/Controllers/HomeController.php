@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Perfil;
+use App\MuseoImagen;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $obrasPopulares=MuseoImagen::where('status_id', '=', 3)->orderBy('visitas', 'DESC')->limit(9)->get();
+        return view('welcome')->with('obrasPopulares', $obrasPopulares);
     }
 }

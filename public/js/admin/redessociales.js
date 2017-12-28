@@ -18,7 +18,7 @@
 		$('#icon_id_registrar').chosen({
 			placeholder_text_single: "Seleccione",
 			search_contains: true,
-			default_no_result_text: 'No se encontró esta red social',
+			no_results_text: "No se encontraron resultados para: ",
 			allow_single_deselect: true
 		});
 	}
@@ -32,7 +32,7 @@ function chosen_actualizar(){
 	$('#icon_id_actualizar').chosen({
 		placeholder_text_single: "Seleccione",
 		search_contains: true,
-		default_no_result_text: 'No se encontró esta red social',
+		no_results_text: "No se encontraron resultados para: ",
 		allow_single_deselect: true
 	});
 }
@@ -140,6 +140,7 @@ function chosen_actualizar(){
 		$("#form_registrar").submit(function(e){
 			e.preventDefault();
 			var form=$(this).serialize();
+			$('input[type="submit"]').attr('disabled','disabled');
 			$.ajax({
 				url:carpeta+'admin/redessociales',
 				headers:{'X-CSRF-TOKEN': document.getElementById('token').value},
@@ -155,6 +156,7 @@ function chosen_actualizar(){
 					$("#alert").html(html);
 				},
 				error: function (repuesta) {
+					$('input[type="submit"]').removeAttr('disabled');
 					scrollToTop();
 					var errores=repuesta.responseJSON;
 		        	html='<div class="alert alert-danger" role="alert">';
@@ -170,6 +172,7 @@ function chosen_actualizar(){
 					$("#alert").html(html);
 			    },
 				success: function(respuesta){
+					$('input[type="submit"]').removeAttr('disabled');
 					limpiar_datos_agregar();
 					listar("#cuadro1");
 					scrollToTop();
@@ -232,6 +235,7 @@ function chosen_actualizar(){
 		$("#form_actualizar").submit(function(e){
 			e.preventDefault();
 			var form=$(this).serialize();
+			$('input[type="submit"]').attr('disabled','disabled');
 			$.ajax({
 				url:carpeta+'admin/redessociales/'+document.getElementById('id_actualizar').value,
 				headers:{'X-CSRF-TOKEN': document.getElementById('token').value},
@@ -247,6 +251,7 @@ function chosen_actualizar(){
 					$("#alert").html(html);
 				},
 				error: function (repuesta) {
+					$('input[type="submit"]').removeAttr('disabled');
 					scrollToTop();
 					var errores=repuesta.responseJSON;
 		        	html='<div class="alert alert-danger" role="alert">';
@@ -262,6 +267,7 @@ function chosen_actualizar(){
 					$("#alert").html(html);
 			    },
 				success: function(respuesta){
+					$('input[type="submit"]').removeAttr('disabled');
 					limpiar_datos_editar();
 					listar("#cuadro2");
 					scrollToTop();

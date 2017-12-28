@@ -25,6 +25,7 @@
               				<th>Perfil(es)</th>
               				<th>Estatus</th>
               				<th>Artistas Asignados</th>
+                      <th>Museos Asignados</th>
               				<th>Creado</th>
               				<th>Actualizado</th>
               				<th>Acción</th>
@@ -43,5 +44,13 @@
   	<script src="{{ asset('plugins/DataTables/dataTables.js') }}"></script>
   	<script src="{{ asset('plugins/DataTables/DataTables-1.10.16/js/jquery.dataTables.js') }}"></script>
   	<script src="{{ asset('plugins/DataTables/Buttons-1.4.2/js/dataTables.buttons.js') }}"></script>
-  	<script src="{{ asset('plugins/DataTables/Responsive-2.2.0/js/dataTables.responsive.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/Responsive-2.2.0/js/dataTables.responsive.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/Buttons-1.4.2/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/Buttons-1.4.2/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/Buttons-1.4.2/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/Buttons-1.4.2/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/jszip.min.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/dataTables.fixedColumns.min.js') }}"></script>
 @endsection

@@ -65,17 +65,51 @@ class ArtistasController extends Controller
 
     public function listing()
     {
-        $artistas=DB::table('artista_user')->join('artistas', 'artista_user.artista_id', '=', 'artistas.id')->where('artista_user.user_id', '=', Auth::user()->id)->get();
+        if(Auth::user()->perfiles->first()->perfil=='Administrador'){
+            $artistas=Artista::all();
+        }else{
+            $artistas=DB::table('artista_user')->join('artistas', 'artista_user.artista_id', '=', 'artistas.id')->where('artista_user.user_id', '=', Auth::user()->id)->get();
+        }
         return Datatables::of($artistas)
             ->addColumn('profesiones', function($data){
-                return DB::table('artista_profesion')->where('artista_id', '=', $data->id)->count();
+                $array="";
+                $profesiones=DB::table('artista_profesion')->join('profesiones', 'artista_profesion.profesion_id', '=', 'profesiones.id')->where('artista_id', '=', $data->id)->get();
+                foreach($profesiones as $profesion)
+                {
+                    $array.=$profesion->profesion." ";
+                }
+                $tamaño=strlen($array);
+                if($tamaño<50){
+                    return $array;
+                }else{
+                    return substr($array, 0, 50)."...";
+                }
             })
             ->addColumn('disciplinas', function($data){
-                return DB::table('artista_disciplina')->where('artista_id', '=', $data->id)->count();
+                $array="";
+                $disciplinas=DB::table('artista_disciplina')->join('disciplinas', 'artista_disciplina.disciplina_id', '=', 'disciplinas.id')->where('artista_id', '=', $data->id)->get();
+                foreach($disciplinas as $disciplina)
+                {
+                    $array.=$disciplina->disciplina." ";
+                }
+                $tamaño=strlen($array);
+                if($tamaño<50){
+                    return $array;
+                }else{
+                    return substr($array, 0, 50)."...";
+                }
             })
             ->addColumn('status', function($data){
                 $status=Status::find($data->status_id);
                 return $status->status;
+            })
+            ->addColumn('genero', function($data){
+                $genero=Genero::find($data->genero_id);
+                return $genero->genero;
+            })
+            ->addColumn('nacionalidad', function($data){
+                $nacionalidad=Pais::find($data->pais_nacimiento_id);
+                return $nacionalidad->pais;
             })
             ->addColumn('asignados', function($data){
                 return DB::table('artista_user')->where('artista_id', '=', $data->id)->pluck('user_id')->ToArray();
@@ -104,6 +138,7 @@ class ArtistasController extends Controller
         }
         $artista->imagenConteo=$imagenes;
         $artista->artistasHabilidades;
+        $artista->promedioVisitaCatalogo=number_format(DB::table('artista_catalogo')->where('artista_id', '=', $artista->id)->avg('visitas'));
         return response()->json(
             $artista->toArray()
         );
@@ -209,7 +244,7 @@ class ArtistasController extends Controller
         $disciplinas=Disciplina::orderBy('disciplina', 'ASC')->pluck('disciplina', 'id');
         $tags=Disciplina::orderBy('disciplina', 'ASC')->get();
         $redesSociales=RedSocial::orderBy('red_social', 'ASC')->pluck('red_social', 'id');
-        $catalogos=ArtistaCatalogo::where('artista_id', '=', $artista->id)->orderBy('visitas', 'DESC')->paginate(9);
+        $catalogos=ArtistaCatalogo::where('artista_id', '=', $artista->id)->orderBy('id', 'DESC')->paginate(9);
         return view('admin.artistas.edit')->with('artista', $artista)->with('generos', $generos)->with('paises', $paises)->with('profesiones', $profesiones)->with('disciplinas', $disciplinas)->with('tags', $tags)->with('catalogos', $catalogos)->with('redesSociales', $redesSociales);
     }
 
@@ -304,7 +339,6 @@ class ArtistasController extends Controller
         }
         DB::table('artistas')->where('id', '=', $artista->id)->update(array('portada' => $route));
         $this->registroEvento("Edito la foto de la portada del artista ".$artista->nombre, "UPDATE");
-        Flash::success('Se ha actualizado la foto de portada del artista '.$artista->name.' con éxito!');
         return response()->json(
             [
                 'mensaje' => 'Se ha guardado la imagen exitosamente!',
@@ -353,21 +387,17 @@ class ArtistasController extends Controller
         );
     }
 
-    public function asignar($id)
+    public function asignar(Request $request, $id)
     {
         $artista=Artista::find($id);
-        $users=User::orderBy('name', 'ASC')->pluck('name', 'id');
-        $mis_users=$artista->users->pluck('id')->ToArray();
-        return view('admin.artistas.asignar')->with('artista', $artista)->with('users', $users)->with('mis_users', $mis_users);
-    }
-
-    public function asignarStore(Request $request, $id)
-    {
-        $artista=Artista::find($id);
-        $artista->users()->sync($request->users);
+        $artista->users()->sync($request->usuarios);
         $this->registroEvento("Le asigno usuarios al artista ".$artista->nombre, "UPDATE");
-        Flash::success('Se le ha asignado al artista '.$artista->nombre.' los usuarios satisfactoriamente!');
-        return redirect()->route('artista.asignar', $artista->id);
+        return response()->json(
+            [
+                'mensaje' => 'Se han asignados los usuarios exitosamente!',
+                'tipo'=>'success'
+            ]
+        );
     }
 
 }

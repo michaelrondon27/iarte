@@ -13,6 +13,10 @@
 				{!! Form::label('artistas', 'Asignar Artistas', ['class'=>'pull-left']) !!}
 				{!! Form::select('artistas[]', $artistas, null, ['class'=>'form-control col-md-12 col-sm-12 col-xs-12 perfiles', 'multiple', 'id'=>'artistas_id']) !!}
 			</div>
+			<div class="form-group col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2" style="text-transform: capitalize;">
+				{!! Form::label('museos', 'Asignar Museos', ['class'=>'pull-left']) !!}
+				{!! Form::select('museos[]', $museos, null, ['class'=>'form-control col-md-12 col-sm-12 col-xs-12 perfiles', 'multiple', 'id'=>'museos_id']) !!}
+			</div>
 			{!! Form::hidden('id', null, ['id'=>'id_actualizar']) !!}
 			{!! Form::hidden('_token', csrf_token(), ['id'=>'token']) !!}
 			<div class="form-group col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">

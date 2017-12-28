@@ -10,7 +10,7 @@
 		</div>
 		<div class="form-group col-md-3 col-sm-12 col-xs-12">
 			{!! Form::label('fecha_nacimiento', '*Fecha de Nacimiento', ['class'=>'pull-left']) !!}
-			{!! Form::text('fecha_nacimiento', null, ['class'=>'form-control fecha', 'placeholder'=>'DD-MM-AAAA', 'required', 'onkeypress'=>'return deshabilitarteclas(event)', 'autocomplete'=>'off', 'onchange'=>'return validarFechaNacimiento(this.value)', 'id'=>'nacimiento']) !!}
+			{!! Form::text('fecha_nacimiento', null, ['class'=>'form-control fecha', 'placeholder'=>'DD-MM-AAAA', 'required', 'onkeypress'=>'return deshabilitarteclas(event)', 'autocomplete'=>'off', 'onchange'=>'return validarFechaNacimiento(this.value, "nacimineto")', 'id'=>'nacimiento']) !!}
 		</div>
 		<div class="form-group col-md-3 col-sm-12 col-xs-12">
 			{!! Form::label('fecha_muerte', 'Fecha de Muerte', ['class'=>'pull-left']) !!}
@@ -45,7 +45,8 @@
 			{!! Form::select('usuarios[]', $usuarios, null, ['class'=>'form-control multiple', 'multiple', 'id'=>'usuarios']) !!}
 		</div>
 		<div class="form-group col-md-12 col-sm-12 col-xs-12">
-			{!! Form::label('biografia', '*Biografía', ['class'=>'pull-left']) !!}
+			{!! Form::label('biografia', '*Biografía', ['class'=>'pull-left label_biografia']) !!}
+			<br>
 			{!! Form::textarea('biografia', null, ['class'=>'form-control biografia', 'required', 'id'=>'biografia']) !!}
 		</div>
 		{!! Form::hidden('status_id', 4) !!}

@@ -20,7 +20,7 @@
 		<link rel="stylesheet" href="{{ asset('plugins/sweetalert/sweetalert.css') }}">
 		@yield('css')
         <!--=============== favicons ===============-->
-        <link rel="shortcut icon" href="public/images/favicon.ico">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     </head>
     <body>
         <!--================= loader ================-->
@@ -46,11 +46,7 @@
                     <div class="height-emulator fl-wrap" id="vacio"></div>
                     <footer class="fl-wrap vinotinto-bg fixed-footer" id="footer">
                         <div class="container">
-                            @if (Auth::check())
-                                <div class="footer-logo"><a href="{{ url('/home') }}" class="ajax"><img src="public/images/footer.png" alt=""></a></div>
-                            @else
-                                <div class="footer-logo"><a href="" class="ajax"><img src="public/images/footer.png" alt=""></a></div>
-                            @endif
+                            <div class="footer-logo"><a href="{{ url('/') }}" class="ajax"><img src="{{ asset('images/footer.png') }}" alt=""></a></div>
                             <div class="clearfix"></div>
                             <div class="copyright">&#169; IARTE 2017 . Todos los derechos reservados. </div>
                         </div>
@@ -76,8 +72,6 @@
             <!-- cd-transition-layer end -->
         </div>
         <!-- Main end -->
-        <!--=============== google map ===============-->
-        <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo"></script>-->
         <!--=============== scripts  ===============-->
         <script src="{{ asset('plugins/jquery/jquery-2.2.3.min.js') }}"></script>
         <script src="{{ asset('js/plugins.js') }}"></script>

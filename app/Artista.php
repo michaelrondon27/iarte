@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Artista extends Model
 {
+
+    use Sluggable;
+
     protected $table='artistas';
 
     protected $fillable=[
@@ -18,7 +22,8 @@ class Artista extends Model
         'status_id',
     	'genero_id',
     	'pais_nacimiento_id',
-    	'pais_muerte_id'
+    	'pais_muerte_id',
+        'tipo'
     ];
 
     public function status()
@@ -38,17 +43,17 @@ class Artista extends Model
 
     public function profesiones()
     {
-        return $this->belongsToMany('App\Profesion');
+        return $this->belongsToMany('App\Profesion')->withTimestamps();
     }
     
     public function disciplinas()
     {
-        return $this->belongsToMany('App\Disciplina');
+        return $this->belongsToMany('App\Disciplina')->withTimestamps();
     }
 
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 
     public function artistasCatalogos()
@@ -66,4 +71,22 @@ class Artista extends Model
         return $this->hasMany('App\ArtistaHabilidad');
     }
 
+    public function museos()
+    {
+        return $this->belongsToMany('App\Museo')->withTimestamps();
+    }
+
+    public function museosImagenes()
+    {
+        return $this->hasMany('App\MuseoImagen');
+    }
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'nombre'
+            ]
+        ];
+    }
 }

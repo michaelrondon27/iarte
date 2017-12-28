@@ -30,4 +30,23 @@ class Status extends Model
         return $this->hasMany('App\ArtistaCatalogoImagen');
     }
 
+    public function museos()
+    {
+        return $this->hasMany('App\Museo');
+    }
+
+    public function museosImagenes()
+    {
+        return $this->hasMany('App\MuseoImagen');
+    }
+
+    public function noticias()
+    {
+        return $this->hasMany('App\Noticia');
+    }
+
+    public function solicitudes()
+    {
+        return $this->hasMany('App\Solicitud');
+    }
 }

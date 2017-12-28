@@ -2,7 +2,7 @@
     <div class="form-group col-sm-8 col-sm-offset-2">
         <h2 id="titulo"></h2>
     </div>
-    <br><br><br><br><br><br>
+    <div class="clearfix"></div>
     <div class="table-responsive">
         <table id="eventos" class="table table-bordered table-hover" cellspacing="0" width="100%">
             <thead>

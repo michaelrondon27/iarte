@@ -33,7 +33,7 @@
                     </div>
                     <div class="share-holder hid-share">
                         <div class="box-header ocultar" style="text-align: left;" id="agregarPortafolio">
-                            <button class='btn btn-vinotinto' onClick='agregar("#cuadro4", "#cuadro5");'><i class='fa fa-folder-o' aria-hidden='true'></i> Nuevo Portafolio</button>
+                            <button class='btn btn-vinotinto' onClick='agregar("#cuadro4", "#cuadro5");'><i class='fa fa-plus' aria-hidden='true'></i> Nuevo Portafolio</button>
                         </div>
                         <div class="box-header ocultar" style="text-align: left;" id="listaPortafolio">
                             <button class='btn btn-vinotinto' onClick='visualizar("#cuadro5", "#cuadro4");'><i class='fa fa-folder-o' aria-hidden='true'></i> Listado de Portafolio</button>
@@ -60,16 +60,27 @@
                         <div class="grid-item-holder">
                             <div class="box-item fl-wrap   popup-box">
                                 @if($catalogo->artistasCatalogosImagenes->count()>0)
-                                    <img src="{{ asset('images/artistas/'.$catalogo->artistasCatalogosImagenes->first()->imagen) }}" alt="Imagen Catalogo" style="max-width: 500px; max-height: 240px; height: 240px;">
+                                    <img src="{{ asset('images/artistas/'.$catalogo->artistasCatalogosImagenes->first()->imagen) }}" alt="Imagen Catalogo" style="width: auto; max-height: 240px; height: 240px;">
                                 @else
                                     <img src="{{ asset('images/artistas/noimage.png') }}" alt="Imagen Catalogo" style="max-width: 500px; max-height: 240px; height: 240px;">
                                 @endif
                                 <a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax"><i class="fa fa-link"></i></a>
                             </div>
+                            @php
+                                $tamaño=strlen($catalogo->titulo);
+                                if($tamaño<50)
+                                {
+                                    $catalogo->title=$catalogo->titulo;
+                                }
+                                else
+                                {
+                                    $catalogo->title=substr($catalogo->titulo, 0, 50)."...";
+                                }
+                            @endphp
                             <div class="det-box fl-wrap" >
                                 @if($artista->tipo==0)
                                     @if($catalogo->status->status=="Disponible")
-                                        <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">{{ $catalogo->titulo }}</a></h3>
+                                        <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax" data-toggle="tooltip" title="{{ $catalogo->titulo }}">{{ $catalogo->title }}</a></h3>
                                         <p style="text-align: center !important;"><a onclick="Item('¿Está seguro de bloquear al público este portafolio?','{{ route('artistascatalogos.lock', $catalogo->id) }}', 'Si, Bloquear!', 'No se ha bloqueado.')" class="btn-warning badge" data-toggle="tooltip" title="Bloquear"><i class="fa fa-lock" aria-hidden="true"></i></a> <a onclick="Item('¿Está seguro de eliminar este portafolio?','{{ route('artistascatalogos.destroy', $catalogo->id) }}', 'Si, Eliminar!', 'No se ha eliminado.')" class="btn-warning badge" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a></p>
                                     @elseif($catalogo->status->status=="Bloqueado")
                                         <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">Este portafolio ha sido bloqueado</a></h3>
@@ -77,11 +88,11 @@
                                     @endif
                                 @elseif($artista->tipo==1)
                                     @if($catalogo->status->status=="Disponible")
-                                        <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">{{ $catalogo->titulo }}</a></h3>
+                                        <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax" data-toggle="tooltip" title="{{ $catalogo->titulo }}">{{ $catalogo->title }}</a></h3>
                                     @elseif($catalogo->status->status=="Bloqueado")
                                         <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">Este portafolio ha sido bloqueado.</a></h3>
                                     @endif
-                                    <p><a onclick="Item('¿Está seguro de eliminar este portafolio?','{{ route('artistascatalogos.destroy', $catalogo->id) }}', 'Si, Eliminar!', 'No se ha eliminado.')" class="btn-warning badge" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a></p>
+                                    <p style="text-align: center !important;"><a onclick="Item('¿Está seguro de eliminar este portafolio?','{{ route('artistascatalogos.destroy', $catalogo->id) }}', 'Si, Eliminar!', 'No se ha eliminado.')" class="btn-warning badge" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a></p>
                                     @foreach(Auth::user()->perfiles as $perfil)
                                         @if($perfil->perfil!='Artista')
                                             @if($catalogo->status->status=="Disponible")

@@ -56,11 +56,11 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12 col-xs-12 div">
                                         {!! Form::label('fecha_nacimiento', '*Fecha de Nacimiento', ['class'=>'pull-left']) !!}
-                                        {!! Form::text('fecha_nacimiento', null, ['class'=>'form-control fecha', 'placeholder'=>'DD-MM-AAAA', 'required', 'onkeypress'=>'return deshabilitarteclas(event)', 'autocomplete'=>'off', 'id'=>'nacimiento']) !!}
+                                        {!! Form::text('fecha_nacimiento', null, ['class'=>'form-control fecha', 'placeholder'=>'DD-MM-AAAA', 'required', 'onkeypress'=>'return deshabilitarteclas(event)', 'autocomplete'=>'off', 'id'=>'nacimiento', 'onchange'=>'return validarFechaNacimiento(this.value, "nacimineto")']) !!}
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12 col-xs-12" id="div-muerte">
                                         {!! Form::label('fecha_muerte', 'Fecha de Muerte', ['class'=>'pull-left']) !!}
-                                        {!! Form::text('fecha_muerte', null, ['class'=>'form-control fecha', 'placeholder'=>'DD-MM-AAAA', 'onkeypress'=>'return deshabilitarteclas(event)', 'autocomplete'=>'off', 'id'=>'muerte']) !!}
+                                        {!! Form::text('fecha_muerte', null, ['class'=>'form-control fecha', 'placeholder'=>'DD-MM-AAAA', 'onkeypress'=>'return deshabilitarteclas(event)', 'autocomplete'=>'off', 'id'=>'muerte', 'onchange'=>'return validarFechaMuerte(this.value)']) !!}
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12 col-xs-12 div-chosen">
                                         {!! Form::label('pais_nacimiento_id', '*País de Nacimiento', ['class'=>'pull-left']) !!}
@@ -83,7 +83,8 @@
                                         {!! Form::select('profesiones[]', $profesiones, null, ['class'=>'form-control col-md-12 col-sm-12 col-xs-12 multiple', 'multiple', 'required', 'id'=>'profesiones']) !!}
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        {!! Form::label('biografia', '*Biografía', ['class'=>'pull-left']) !!}
+                                        {!! Form::label('biografia', '*Biografía', ['class'=>'pull-left label_biografia']) !!}
+                                        <br>
                                         {!! Form::textarea('biografia', null, ['class'=>'form-control biografia', 'required', 'id'=>'biografia_artista']) !!}
                                     </div>
                                     <div class="form-group col-md-8 col-md-offset-2">
@@ -99,23 +100,9 @@
                                 <p style="text-align: right; font-size: 18px;" id="p-nacimiento"></p>
                                 <p style="text-align: right; font-size: 18px;" class="ocultar" id="p-muerte"></p>
                                 <p style="text-align: right; font-size: 18px;" id="p-pais_nacimiento"></p>
-                                @if($artista->pais_muerte_id!="")
-                                    <p style="text-align: right; font-size: 18px;"><b>País de Muerte: {{ $pais_muerte[0]->pais }}</b></p>
-                                @endif
-                                <br>
-                                <p style="text-align: right; font-size: 18px; text-decoration: underline;"><b>Profesión(es):</b></p>
-                                <div style="text-align: right;">
-                                    @foreach($artista->profesiones as $profesion)
-                                        <span class="badge">{{ $profesion->profesion }}</span>
-                                    @endforeach
-                                </div>
-                                <br>
-                                <p style="text-align: right; font-size: 18px; text-decoration: underline;"><b>Disciplina(s):</b></p>
-                                <div style="text-align: right;">
-                                    @foreach($artista->disciplinas as $disciplina)
-                                        <span class="badge">{{ $disciplina->disciplina }}</span>
-                                    @endforeach
-                                </div>
+                                <p style="text-align: right; font-size: 18px;" id="p-pais_muerte" class="ocultar"></p>
+                                <p style="text-align: right; font-size: 18px; text-decoration: underline;" id="p-profesiones"><b>Profesión(es):</b><br></p>
+                                <p style="text-align: right; font-size: 18px; text-decoration: underline;" id="p-disciplinas"><b>Disciplina(s):</b><br></p>
                             </div>
                         </div>
                     </div>
@@ -167,13 +154,12 @@
             <!-- 4  -->
             <div class="inline-facts">
                 <div class="milestone-counter">
-                    <i class="fa fa-trophy"></i>
+                    <i class="fa fa-area-chart"></i>
                     <div class="stats animaper">
-                        <div class="num-counter" >435</div>
+                        <div class="num-counter" id="promedio"></div>
                     </div>
                 </div>
-                <h6>Clients Working</h6>
-                <span>Blandit praesent luptatum</span>
+                <h6>Promedio Visitas por Catalogo</h6>
             </div>
             <!-- 4 end  -->
         </div>
@@ -183,19 +169,19 @@
     <section class="column-section scroll-con-sec" data-scrollax-parent="true" id="sec4">
         <div class="section-title ">
             <h2>Mi Portafolio</h2>
-            <div class="dec-separator"><img src="public/images/logo.png" alt="" style="width: 50px;"> </div>
+            <div class="dec-separator"><img src="{{ asset('images/logo.png') }}" alt="" style="width: 50px;"> </div>
         </div>
         <div id="alert_portafolio"></div>
         <div class="box-header ocultar" style="text-align: left;" id="agregarPortafolio">
-            <button class='btn btn-vinotinto' onClick='agregar("#cuadro4", "#cuadro5");'><i class='fa fa-folder-o' aria-hidden='true'></i> Nuevo Portafolio</button>
+            <button class='btn btn-vinotinto' onClick='agregar("#cuadro4", "#cuadro5");'><i class='fa fa-plus' aria-hidden='true'></i> Nuevo Portafolio</button>
         </div>
         <div class="box-header ocultar" style="text-align: left;" id="listaPortafolio">
             <button class='btn btn-vinotinto' onClick='visualizar("#cuadro5", "#cuadro4");'><i class='fa fa-folder-o' aria-hidden='true'></i> Listado de Portafolio</button>
         </div>
         @include('admin.catalogos.create')
-        <div class="container big-container" id="cuadro5">
+        <div class="container-fluid" id="cuadro5">
             <div class="fl-wrap inline-filter npf">
-                <div class="container big-container">
+                <div class="container-fluid">
                     <div class="filter-button">Filtro</div>
                     <div class="gallery-filters ">
                         <span>Filtro : </span>
@@ -231,16 +217,27 @@
                         <div class="grid-item-holder">
                             <div class="box-item fl-wrap popup-box">
                                 @if($catalogo->artistasCatalogosImagenes->count()>0)
-                                    <img src="{{ asset('images/artistas/'.$catalogo->artistasCatalogosImagenes->first()->imagen) }}" alt="Imagen Catalogo" style="max-width: 500px; max-height: 240px; height: 240px;">
+                                    <img src="{{ asset('images/artistas/'.$catalogo->artistasCatalogosImagenes->first()->imagen) }}" alt="Imagen Catalogo" style="width: auto; max-height: 240px; height: 240px;">
                                 @else
                                     <img src="{{ asset('images/artistas/noimage.png') }}" alt="Imagen Catalogo" style="max-width: 500px; max-height: 240px; height: 240px;">
                                 @endif
                                 <a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax"><i class="fa fa-link"></i></a>
                             </div>
+                            @php
+                                $tamaño=strlen($catalogo->titulo);
+                                if($tamaño<50)
+                                {
+                                    $catalogo->title=$catalogo->titulo;
+                                }
+                                else
+                                {
+                                    $catalogo->title=substr($catalogo->titulo, 0, 50)."...";
+                                }
+                            @endphp
                             <div class="det-box fl-wrap">
                                 @if($artista->tipo==0)
                                     @if($catalogo->status->status=="Disponible")
-                                        <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">{{ $catalogo->titulo }}</a></h3>
+                                        <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax" data-toggle="tooltip" title="{{ $catalogo->titulo }}">{{ $catalogo->title }}</a></h3>
                                         <h4>
                                             <a onclick="Item('¿Está seguro de bloquear al público este portafolio?','{{ route('artistascatalogos.lock', $catalogo->id) }}', 'Si, Bloquear!', 'No se ha bloqueado.')" class="btn-warning badge" data-toggle="tooltip" title="Bloquear"><i class="fa fa-lock" aria-hidden="true"></i></a>
                                     @elseif($catalogo->status->status=="Bloqueado")
@@ -254,7 +251,7 @@
                                     @foreach(Auth::user()->perfiles as $perfil)
                                         @if($perfil->perfil=='Artista')
                                             @if($catalogo->status->status=="Disponible")
-                                                <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">{{ $catalogo->titulo }}</a></h3>
+                                                <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax" data-toggle="tooltip" title="{{ $catalogo->titulo }}">{{ $catalogo->title }}</a></h3>
                                             @elseif($catalogo->status->status=="Bloqueado")
                                                 <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">Este portafolio ha sido bloqueado al público, por favor comuniquese con la institución para más información</a></h3>
                                             @endif
@@ -262,7 +259,7 @@
                                             @break
                                         @else
                                             @if($catalogo->status->status=="Disponible")
-                                                <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">{{ $catalogo->titulo }}</a></h3>
+                                                <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax" data-toggle="tooltip" title="{{ $catalogo->titulo }}">{{ $catalogo->title }}</a></h3>
                                                 <h4><a onclick="Item('¿Está seguro de bloquear al público este portafolio?','{{ route('artistascatalogos.lock', $catalogo->id) }}', 'Si, Bloquear!', 'No se ha bloqueado.')" class="btn-warning badge" data-toggle="tooltip" title="Bloquear"><i class="fa fa-lock" aria-hidden="true"></i></a></h4>
                                             @elseif($catalogo->status->status=="Bloqueado")
                                                 <h3><a href="{{ route('artistascatalogos.edit', $catalogo->id) }}" class="ajax">Este portafolio ha sido bloqueado al público, por favor comuniquese con la institución para más información</a></h3>
@@ -301,7 +298,7 @@
                         <h2>  Mis Habilidades </h2>
                         @include('admin.artistashabilidades.create')
                         @include('admin.artistashabilidades.edit')
-                        <div class="table-responsive col-md-12" id="cuadro10">
+                        <div class="table-responsive col-md-12" id="cuadro10" style="background-color: rgba(255, 255, 255, 0.25); border-radius: 10px;">
                             <table id="tableHabilidades" class="table table-bordered table-striped table-hover" style="background-color: #fff;">
                                 <thead>
                                     <tr>
@@ -329,7 +326,7 @@
                     <div id="alert_red_social"></div>
                     <div class="section-title ">
                         <h2>Redes Sociales</h2>
-                        <div class="dec-separator"><img src="public/images/logo.png" alt="" style="width: 50px;"> </div>
+                        <div class="dec-separator"><img src="{{ asset('images/logo.png') }}" alt="" style="width: 50px;"> </div>
                     </div>
                     @include('admin.artistasredessociales.create')
                     @include('admin.artistasredessociales.edit')
@@ -358,53 +355,11 @@
             </div>
         </div>
     </section>
-    <!-- section end -->
-    <section class="no-padding scroll-con-sec" id="sec8">
-        <div class="fl-wrap order-wrap gray-bg">
-            <div class="container">
-                <div class="row">
-                    <div id="alert_red_social"></div>
-                    <div class="section-title ">
-                        <h2>Redes Sociales</h2>
-                        <div class="dec-separator"><img src="public/images/logo.png" alt="" style="width: 50px;"> </div>
-                    </div>
-                    @include('admin.artistasredessociales.create')
-                    @include('admin.artistasredessociales.edit')
-                    <div class="table-responsive col-md-12" id="cuadro6">
-                        <table id="reddesSociales" class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Red Social</th>
-                                    <th>Nombre</th>
-                                    <th>Creado</th>
-                                    <th>Actualizado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="cuadro9" class="col-md-12">
-                        @foreach($artista->artistasRedesSociales as $artistaRedSocial)
-                            <div class="col-md-4" style="font-size: 16px; padding: 10px;">
-                                {!! $artistaRedSocial->redSocial->icon->icon !!}{{ ": ".$artistaRedSocial->nombre }}
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- section end -->
     <!--footer   --> 
     <div class="height-emulator fl-wrap" id="vacio"></div>
     <footer class="fl-wrap vinotinto-bg fixed-footer" id="footer">
         <div class="container">
-            @if (Auth::check())
-                <div class="footer-logo"><a href="{{ url('/home') }}" class="ajax"><img src="public/images/footer.png" alt=""></a></div>
-            @else
-                <div class="footer-logo"><a href="" class="ajax"><img src="public/images/footer.png" alt=""></a></div>
-            @endif
+            <div class="footer-logo"><a href="{{ url('/') }}" class="ajax"><img src="{{ asset('images/footer.png') }}" alt=""></a></div>
             <div class="clearfix"></div>
             <div class="copyright">&#169; IARTE 2017 . Todos los derechos reservados. </div>
         </div>

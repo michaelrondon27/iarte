@@ -1,4 +1,4 @@
-<div class="box-body ocultar" id="cuadro12">
+<div class="box-body ocultar" id="cuadro12" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px;">
     <div class="box-body">
         {!! Form::open(['id'=>'form_actualizar_habilidad', 'role'=>'form', 'name'=>'form_actualizar_habilidad', 'method'=>'PUT']) !!}
             <div class="form-group col-md-12">

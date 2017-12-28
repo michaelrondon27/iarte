@@ -65,7 +65,7 @@
 						 +"<'col-sm-6 col-md-6 col-lg-6'p>>>",
 			"buttons":[
 				{
-					"text": "<i class='fa fa-briefcase'></i>",
+					"text": "<i class='fa fa-plus'></i>",
 					"titleAttr": "Agregar Disciplina",
 					"className": "btn btn-success",
 					"action": function(){
@@ -132,6 +132,7 @@
 		$("#form_registrar").submit(function(e){
 			e.preventDefault();
 			var form=$(this).serialize();
+			$('input[type="submit"]').attr('disabled','disabled');
 			$.ajax({
 				url:carpeta+'admin/disciplinas',
 				headers:{'X-CSRF-TOKEN': document.getElementById('token').value},
@@ -160,8 +161,10 @@
 				    }
 			        html+='</div>';
 					$("#alert").html(html);
+					$('input[type="submit"]').removeAttr('disabled');
 			    },
 				success: function(respuesta){
+					$('input[type="submit"]').removeAttr('disabled');
 					limpiar_datos_agregar();
 					listar("#cuadro1");
 					scrollToTop();
@@ -213,6 +216,7 @@
 		$("#form_actualizar").submit(function(e){
 			e.preventDefault();
 			var form=$(this).serialize();
+			$('input[type="submit"]').attr('disabled','disabled');
 			$.ajax({
 				url:carpeta+'admin/disciplinas/'+document.getElementById('id_actualizar').value,
 				headers:{'X-CSRF-TOKEN': document.getElementById('token').value},
@@ -228,6 +232,7 @@
 					$("#alert").html(html);
 				},
 				error: function (repuesta) {
+					$('input[type="submit"]').removeAttr('disabled');
 					scrollToTop();
 					var errores=repuesta.responseJSON;
 		        	html='<div class="alert alert-danger" role="alert">';
@@ -243,6 +248,7 @@
 					$("#alert").html(html);
 			    },
 				success: function(respuesta){
+					$('input[type="submit"]').removeAttr('disabled');
 					limpiar_datos_editar();
 					listar("#cuadro2");
 					scrollToTop();

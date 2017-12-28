@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Perfil;
 use App\Artista;
+use App\Museo;
 use App\RegistroEvento;
 use Auth;
 use Laracasts\Flash\Flash;
@@ -72,11 +73,17 @@ class UsersController extends Controller
             ->addColumn('artista_id', function($data){
                 return $data->artistas->pluck('id')->ToArray();
             })
+            ->addColumn('museo_id', function($data){
+                return $data->museos->pluck('id')->ToArray();
+            })
             ->editColumn('status_id', function($data){ 
                 return with($data->status->status);
             })
             ->addColumn('artistas_asignados', function($data){ 
                 return with($data->artistas->count());
+            })
+            ->addColumn('museos_asignados', function($data){ 
+                return with($data->museos->count());
             })
             ->editColumn('created_at', function($data){ 
                 return with(new Carbon($data->created_at))->format('d-m-Y H:i:s');
@@ -99,7 +106,8 @@ class UsersController extends Controller
         }
         $perfiles=Perfil::orderBy('perfil', 'ASC')->pluck('perfil', 'id');
         $artistas=Artista::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-        return view('admin.users.index')->with('perfiles', $perfiles)->with('artistas', $artistas);
+        $museos=Museo::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        return view('admin.users.index')->with('perfiles', $perfiles)->with('artistas', $artistas)->with('museos', $museos);
     }
 
     /**
@@ -181,6 +189,7 @@ class UsersController extends Controller
         $user=User::find($id);
         $user->perfiles()->sync($request->perfil);
         $user->artistas()->sync($request->artistas);
+        $user->museos()->sync($request->museos);
         $this->registroEvento("Edito al usuario ".$user->email, "UPDATE");
         return response()->json(
             [

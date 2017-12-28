@@ -55,7 +55,7 @@ function Item(contenido, url, afirmativo, respuesta){
     function solonumeros(e){
     	key=e.keyCode || e.which;
     	teclado=String.fromCharCode(key);
-    	numeros="1234567890";
+    	numeros="1234567890.-";
     	especiales="8-9-17-37-38-46";//los numeros de esta linea son especiales y es para las flechass
     	teclado_escpecial=false;
     	for(var i in especiales){
@@ -96,7 +96,7 @@ function Item(contenido, url, afirmativo, respuesta){
         Funcion que valida la fecha de nacimiento del artista, tambien tiene un
         minimo de edad.
     */  
-    function validarFechaNacimiento(date){
+    function validarFechaNacimiento(date, input){
     	var edad=0;
         //capturamos la fecha de hoy 
         hoy=new Date();
@@ -127,7 +127,7 @@ function Item(contenido, url, afirmativo, respuesta){
             type:'warning',
             confirmButtonText:'Aceptar'}
           );
-          document.getElementById("nacimiento").value="";
+          document.getElementById(input).value="";
         }
     }
 /* ------------------------------------------------------------------------------- */

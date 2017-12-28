@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class ArtistaCatalogo extends Model
 {
+
+    use Sluggable;
+
     protected $table='artista_catalogo';
 
     protected $fillable=[
@@ -28,7 +32,7 @@ class ArtistaCatalogo extends Model
 
     public function disciplinas()
     {
-        return $this->belongsToMany('App\Disciplina');
+        return $this->belongsToMany('App\Disciplina')->withTimestamps();
     }
 
     public function artistasCatalogosImagenes()
@@ -36,4 +40,12 @@ class ArtistaCatalogo extends Model
         return $this->hasMany('App\ArtistaCatalogoImagen');
     }
 
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'titulo'
+            ]
+        ];
+    }
 }

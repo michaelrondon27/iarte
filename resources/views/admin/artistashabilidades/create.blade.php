@@ -1,4 +1,4 @@
-<div class="box-body ocultar" id="cuadro11">
+<div class="box-body ocultar" id="cuadro11" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px;">
     <div class="box-body">
         {!! Form::open(['id'=>'form_registrar_habilidad', 'role'=>'form', 'name'=>'form_registrar_habilidad', 'method'=>'POST']) !!}
             <div class="form-group col-md-12">

@@ -20,7 +20,7 @@
           <div>
             <div class="dt-buttons">
               <a class="dt-buttons btn btn-success" tabindex="0" aria-controls="tabla" title="Agregar Red Social" onClick="agregar()">
-                <span><i class="fa fa-handshake-o"></i></span>
+                <span><i class="fa fa-plus"></i></span>
               </a>
               <a class="dt-buttons btn btn-primary" tabindex="0" aria-controls="tabla" title="Refrescar Datos" onClick="listar()">
                 <span><i class="fa fa-refresh fa-spin fa-fw"></i></span>

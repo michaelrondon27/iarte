@@ -26,5 +26,8 @@ class PerfilesTableSeeder extends Seeder
         factory(App\Perfil::class)->create([
             'perfil'=>'Solicitante',
         ]);
+        factory(App\Perfil::class)->create([
+            'perfil'=>'Atención al Ciudadano',
+        ]);
     }
 }

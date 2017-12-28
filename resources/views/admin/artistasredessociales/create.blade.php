@@ -1,10 +1,6 @@
 <div class="box-body ocultar" id="cuadro7">
   	<div class="form-group col-sm-8 col-sm-offset-2">
-<<<<<<< HEAD
     	<h2>Registrar Red Social</h2>
-=======
-    	<h2>Registrar Artista</h2>
->>>>>>> Prueba
    		@include('template.partials.required')
   	</div>
     {!! Form::open(['id'=>'form_registrar_red_social', 'role'=>'form', 'files'=>true, 'name'=>'form_registrar_red_social', 'method'=>'POST']) !!}

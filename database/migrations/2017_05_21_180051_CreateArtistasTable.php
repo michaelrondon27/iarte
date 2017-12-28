@@ -30,11 +30,12 @@ class CreateArtistasTable extends Migration
             $table->integer('pais_muerte_id')->unsigned()->nullable();
             $table->foreign('pais_muerte_id')->references('id')->on('paises')->onDelete('restrict');
             $table->enum('tipo', [0, 1]);
-            $table->string('foto')->default('default.png');
+            $table->string('foto')->default('default.jpg');
             $table->string('portada')->default('1.jpg');
             $table->string('bg_biografia')->default('42.jpg');
             $table->string('bg_habilidades')->default('10.jpg');
             $table->integer('visitas')->default(0);
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
 
@@ -52,6 +53,7 @@ class CreateArtistasTable extends Migration
             $table->string('titulo');
             $table->text('descripcion');
             $table->integer('visitas')->default(0);
+            $table->string('slug')->nullable();
             $table->integer('artista_id')->unsigned();
             $table->foreign('artista_id')->references('id')->on('artistas')->onDelete('cascade');
             $table->integer('status_id')->unsigned();

@@ -438,6 +438,7 @@ blockquote p {
 .respimg {
 	width:100%;
 	height:auto;
+	max-height: 540px;
 }
 .overlay {
 	position:absolute;
@@ -1036,10 +1037,10 @@ section.full-height-section {
 	color:#fff;
 	text-transform:uppercase;
 	font-weight:800;
-	letter-spacing:12px;
+	/*letter-spacing:12px;*/
 	font-size:70px;
 	position:relative;
-	padding:0 70px;
+	/*padding:0 70px;*/
 }
 .section-entry h2:before , .section-entry h2:after {
 	content:'';
@@ -1489,7 +1490,7 @@ section.full-height-section {
 	width:25%;
 	padding:40px 0;
 	position:relative;
-	cursor:help
+	cursor:default;
 }
 .inline-facts:before  {
 	content:'';
@@ -1651,10 +1652,9 @@ section.full-height-section {
 	opacity:0.8;
 }
 .serv-header {
-	padding-left:60px;
 	padding-bottom:5px;
 	margin-bottom:5px;
-	border-bottom:1px dotted rgba(255,255,255,0.21);
+	border-bottom:1px solid #800000;
 }
 .serv-header:before {
 	content:'';
@@ -1680,7 +1680,7 @@ section.full-height-section {
 }
 .serv-header h4 {
 	text-align:left;
-	color:#fff;
+	color:#800000;
 	font-size:18px;
 	padding-bottom:6px;
 	font-weight:700;
@@ -3868,8 +3868,8 @@ article.fw-artc {
 	margin-bottom:20px;
 	font-weight:800;
 	position:relative;
-	background:#f9f9f9;
-	color:#292929
+	background:#800000;
+	color:#fff
 }
 .main-sidebar-widget .about-widget p{
 	color:#000;
@@ -3908,7 +3908,7 @@ article.fw-artc {
 	float:left;
 	color:#fff;
 	padding:8px 10px;
-	background:#292929;
+	background:#800000;
 	margin:0 4px 4px 0;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-style:italic;
@@ -3926,7 +3926,6 @@ article.fw-artc {
 	border-color:#eee;
 	float:left;
 	text-align:left;
-	width:100%;
 	padding:14px 6px 14px 18px;
 	position:relative;
 	border-bottom:1px solid #eee;
@@ -3980,10 +3979,9 @@ article.fw-artc {
 }
 .recent-post-img {
 	position:absolute;
-	top:6px;
+	top:2px;
 	left:0;
 	width:50px;
-	height:50px;
 	overflow:hidden;
 }
 .recent-post-img img {
@@ -4005,6 +4003,7 @@ article.fw-artc {
 	width:100%;
 	padding-bottom:6px;
 	text-align:left;
+	text-transform: capitalize;
 }
 .recent-post-content h4 a {
 	color:#fff;

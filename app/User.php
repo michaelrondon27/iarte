@@ -53,4 +53,19 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Artista')->withTimestamps();
     }
+
+    public function museos()
+    {
+        return $this->belongsToMany('App\Museo')->withTimestamps();
+    }
+
+    public function noticias()
+    {
+        return $this->hasMany('App\Noticia');
+    }
+
+    public function solicitudes()
+    {
+        return $this->hasMany('App\Solicitud');
+    }
 }

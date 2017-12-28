@@ -16,15 +16,24 @@ class CreateMuseosTable extends Migration
         Schema::create('museos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->text('histotria');
+            $table->date('fecha_fundacion')->default('2000-01-01');
+            $table->string('foto')->default('default.jpg');
+            $table->text('historia');
             $table->text('direccion')->nullable();
             $table->string('telefono')->nullable();
             $table->string('correo')->nullable();
-            $table->string('latitud')->nulllable();
+            $table->string('contacto')->nullable();
+            $table->string('latitud')->nullable();
             $table->string('longitud')->nullable();
             $table->integer('visitas')->default(0);
+            $table->integer('estado_id')->unsigned();
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('restrict');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('restrict');
+            $table->string('portada')->default('1.jpg');
+            $table->string('bg_historia')->default('42.jpg');
+            $table->string('bg_servicios')->default('10.jpg');
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
 
@@ -41,14 +50,18 @@ class CreateMuseosTable extends Migration
             $table->increments('id');
             $table->text('imagen');
             $table->string('titulo');
-            $table->integer('museo_id')->unsigned();
+            $table->text('reseña')->nullable();
+            $table->integer('visitas')->default(0);
+            $table->integer('museo_id')->unsigned()->nullable();
             $table->foreign('museo_id')->references('id')->on('museos')->onDelete('cascade');
+            $table->integer('artista_id')->unsigned();
+            $table->foreign('artista_id')->references('id')->on('artistas')->onDelete('restrict');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('restrict');
             $table->timestamps();
         });
 
-        Schema::create('museo_artista', function (Blueprint $table) {
+        Schema::create('artista_museo', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('museo_id')->unsigned();
             $table->foreign('museo_id')->references('id')->on('museos')->onDelete('cascade');
@@ -60,7 +73,7 @@ class CreateMuseosTable extends Migration
         Schema::create('museo_directivo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->text('foto');
+            $table->string('foto')->default('default.jpg');
             $table->integer('museo_id')->unsigned();
             $table->foreign('museo_id')->references('id')->on('museos')->onDelete('cascade');
             $table->integer('cargo_id')->unsigned();

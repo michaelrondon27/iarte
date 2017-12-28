@@ -20,4 +20,9 @@ class Disciplina extends Model
     	return $this->belongsToMany('App\ArtistaCatalogo')->withTimestamps();
     }
 
+    public function solicitudes()
+    {
+        return $this->belongsToMany('App\Solicitud')->withTimestamps();
+    }
+
 }

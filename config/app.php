@@ -180,7 +180,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
-
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
     ],
 
     /*

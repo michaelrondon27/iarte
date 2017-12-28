@@ -10,4 +10,9 @@ class Cargo extends Model
 
     protected $fillable=['cargo'];
 
+    public function museos()
+    {
+        return $this->hasMany('App\Museo');
+    }
+
 }
